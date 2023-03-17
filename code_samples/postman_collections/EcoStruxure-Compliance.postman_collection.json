@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "e5ee437a-dcb7-4e78-83c8-b867b37a6cf9",
+		"name": "EcoStruxure-Compliance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2388852"
+	},
+	"item": [
+		{
+			"name": "Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"access_token\", pm.response.json().access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{token_server}}/oauth/token",
+					"host": [
+						"{{token_server}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search assets by QR",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_server}}/assets?qrText=https://www.go2se.com/ref=59837/sn=M4153010020",
+					"host": [
+						"{{api_server}}"
+					],
+					"path": [
+						"assets"
+					],
+					"query": [
+						{
+							"key": "qrText",
+							"value": "https://www.go2se.com/ref=59837/sn=M4153010020"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get asset",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_server}}/assets/:id",
+					"host": [
+						"{{api_server}}"
+					],
+					"path": [
+						"assets",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "59837%23%23%23M4153010020"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get asset hierarchy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_server}}/assets/:id/hierarchy",
+					"host": [
+						"{{api_server}}"
+					],
+					"path": [
+						"assets",
+						":id",
+						"hierarchy"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "59837%23%23%23M4153010020"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "client_id",
+			"value": "****",
+			"type": "string"
+		},
+		{
+			"key": "client_secret",
+			"value": "****",
+			"type": "string"
+		},
+		{
+			"key": "token_server",
+			"value": "https://se-exchange-uat-sandbox.apigee.net/ecostruxure/v1",
+			"type": "string"
+		},
+		{
+			"key": "api_server",
+			"value": "https://se-exchange-uat-sandbox.apigee.net/openesx/v1",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
